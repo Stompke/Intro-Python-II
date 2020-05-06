@@ -23,6 +23,18 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
+# declares all items
+
+items = {
+    'knife':  Item("Knife",
+                     "A long pointy sharp knife"),
+    'shovel':  Item("Spade Shovel",
+                     "Very good at digging holes."),
+    'candle':  Item("Gold Candlestick",
+                     "It will light your path. Or buy you something nice"),
+                     
+}
+
 
 # Link rooms together
 
@@ -37,7 +49,11 @@ room['treasure'].s_to = room['narrow']
 
 # room items
 
-room['outside'].addItem()
+
+room['outside'].addItem(items['shovel'])
+room['outside'].addItem(items['knife'])
+room['foyer'].addItem(items['candle'])
+
 
 #
 # Main
@@ -50,8 +66,8 @@ myPlayer = Player('Shawn', room['outside'])
 print(f"\n\n{myPlayer.name}\n\n")
 
 while True:
-    print(myPlayer.name)
-    command=input('Enter a command: ')
+    print(myPlayer)
+    command=input('Enter a command: \n')
     if command == 'q':
         break
     if command == "n":
@@ -80,7 +96,18 @@ while True:
             print("\t There is no room there...\n")
     
     if command == "look":
-        print(myPlayer.current_room.inventory)
+        print(f"\tItems: {[ [item.name, item.description] for item in myPlayer.current_room.inventory]}\n")
+    if command == "inv" or "inventory":
+        # print(f"\t My Inventory: {[ [item.name, item.description] for item in myPlayer.inventory]}\n")
+        print(f"\t My Inventory: {myPlayer.inventory}\n")
+    if command == "take":
+        stuff = myPlayer.current_room.inventory
+        if len(stuff) > 0:
+            print(f"\t You took it!")
+            myPlayer.addItem(stuff)
+        else:
+            print(f"\t There is nothing to get.\n")
+            
 
 # Write a loop that:
 #

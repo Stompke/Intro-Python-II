@@ -16,4 +16,4 @@ class Player:
             self.current_room.addItem(item)
 
     def __str__(self):
-        return f"{self.name} is in room "
+        return f"\t{self.name}- ({self.current_room.name})"
