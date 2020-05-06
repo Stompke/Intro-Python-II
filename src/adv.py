@@ -5,20 +5,20 @@ from item import Item
 # Declare all the rooms
 
 room = {
-    'outside':  Room("Outside Cave Entrance",
+    'outside':  Room("🗻  Outside Cave Entrance",
                      "North of you, the cave mount beckons"),
 
-    'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
+    'foyer':    Room("🍽  Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
 
-    'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
+    'overlook': Room("🌋  Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm."""),
 
-    'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
+    'narrow':   Room("⛰⛰ Narrow Passage", """The narrow passage bends here from west
 to north. The smell of gold permeates the air."""),
 
-    'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
+    'treasure': Room("💰  Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
@@ -26,11 +26,11 @@ earlier adventurers. The only exit is to the south."""),
 # declares all items
 
 items = {
-    'knife':  Item("Knife",
+    'knife':  Item("🔪 Knife",
                      "A long pointy sharp knife"),
-    'shovel':  Item("Spade Shovel",
+    'shovel':  Item("⛏ Spade Shovel",
                      "Very good at digging holes."),
-    'candle':  Item("Gold Candlestick",
+    'candle':  Item("🕯 Gold Candlestick",
                      "It will light your path. Or buy you something nice"),
                      
 }
@@ -61,43 +61,44 @@ room['foyer'].addItem(items['candle'])
 
 # Make a new player object that is currently in the 'outside' room.
 
-myPlayer = Player('Shawn', room['outside'])
+myPlayer = Player('😎 Shawn', room['outside'])
 
-print(f"\n\n{myPlayer.name}\n\n")
+print(f"\n\n ✨✨✨ WELOME TO THE JOURNEY {myPlayer.name}!!! ✨✨✨ \n\n")
 
 while True:
     print(myPlayer)
-    command=input('Enter a command: \n')
+    command=input('\tEnter a command: ')
+    print("\n\n\n\n\n\n\n")
     if command == 'q':
         break
     if command == "n":
         if myPlayer.current_room.n_to:
             myPlayer.current_room=myPlayer.current_room.n_to
-            print(f"\t{myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
+            print(f"\t\t You entered: -> {myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
         else:
-            print("\t There is no room there...\n")
+            print("\t\t There is no room there...\n")
     if command == "s":
         if myPlayer.current_room.s_to:
             myPlayer.current_room=myPlayer.current_room.s_to
-            print(f"\t{myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
+            print(f"\t\t You entered: -> {myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
         else:
-            print("\t There is no room there...\n")
+            print("\t\t There is no room there...\n")
     if command == "e":
         if myPlayer.current_room.e_to:
             myPlayer.current_room=myPlayer.current_room.e_to
-            print(f"\t{myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
+            print(f"\t\t You entered: -> {myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
         else:
-            print("\t There is no room there...\n")
+            print("\t\t There is no room there...\n")
     if command == "w":
         if myPlayer.current_room.w_to:
             myPlayer.current_room=myPlayer.current_room.w_to
-            print(f"\t{myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
+            print(f"\t\t You entered: -> {myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
         else:
-            print("\t There is no room there...\n")
+            print("\t\t There is no room there...\n")
     
     if command == "look":
-        print(f"\tItems: {[ [item.name, item.description] for item in myPlayer.current_room.inventory]}\n")
-    if command == "inv" or "inventory":
+        print(f"\t\tItems: {[ (item.name, item.description) for item in myPlayer.current_room.inventory]}\n")
+    if command == "inv":
         # print(f"\t My Inventory: {[ [item.name, item.description] for item in myPlayer.inventory]}\n")
         print(f"\t My Inventory: {myPlayer.inventory}\n")
     if command == "take":
