@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -33,16 +35,57 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# room items
+
+room['outside'].addItem()
+
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
 
+myPlayer = Player('Shawn', room['outside'])
+
+print(f"\n\n{myPlayer.name}\n\n")
+
+while True:
+    print(myPlayer.name)
+    command=input('Enter a command: ')
+    if command == 'q':
+        break
+    if command == "n":
+        if myPlayer.current_room.n_to:
+            myPlayer.current_room=myPlayer.current_room.n_to
+            print(f"\t{myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
+        else:
+            print("\t There is no room there...\n")
+    if command == "s":
+        if myPlayer.current_room.s_to:
+            myPlayer.current_room=myPlayer.current_room.s_to
+            print(f"\t{myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
+        else:
+            print("\t There is no room there...\n")
+    if command == "e":
+        if myPlayer.current_room.e_to:
+            myPlayer.current_room=myPlayer.current_room.e_to
+            print(f"\t{myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
+        else:
+            print("\t There is no room there...\n")
+    if command == "w":
+        if myPlayer.current_room.w_to:
+            myPlayer.current_room=myPlayer.current_room.w_to
+            print(f"\t{myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
+        else:
+            print("\t There is no room there...\n")
+    
+    if command == "look":
+        print(myPlayer.current_room.inventory)
+
 # Write a loop that:
 #
 # * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
+# * Prints the current description (the textwrap modulse might be useful here).
 # * Waits for user input and decides what to do.
 #
 # If the user enters a cardinal direction, attempt to move to the room there.
