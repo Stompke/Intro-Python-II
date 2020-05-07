@@ -101,11 +101,14 @@ while True:
     if command == "inv":
         # print(f"\t My Inventory: {[ [item.name, item.description] for item in myPlayer.inventory]}\n")
         print(f"\t My Inventory: {myPlayer.inventory}\n")
+        print(f"\t My Inventory: {[ (item.name, item.description) for item in myPlayer.inventory]}\n")
     if command == "take":
         stuff = myPlayer.current_room.inventory
+        take_this=input('\tWhat to take?: ')
         if len(stuff) > 0:
             print(f"\t You took it!")
-            myPlayer.addItem(stuff)
+            # myPlayer.addItem(stuff[0])
+            myPlayer.current_room.removeItem(take_this, myPlayer)
         else:
             print(f"\t There is nothing to get.\n")
             
