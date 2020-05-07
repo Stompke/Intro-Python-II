@@ -74,9 +74,36 @@ while True:
 
     if len(split_command) == 1:
 
-        if command == 'q':
+        # Help commands
+
+        if command == 'h':
+            print('\n These are your avaible one word commands:\n')
+
+            print('Directions:')
+            print('\tn = north')
+            print('\te = east')
+            print('\ts = west')
+            print('\tw = south\n')
+
+            print('Other:')
+            print('\tq = Quit Game')
+            print("\tinv = View your Inventory")
+            print("\tlook = Look whats in a room")
+
+            print("\n")
+        elif command == 'h2':
+            print('\n These are your avaible two word commands:\n')
+            
+            print('Actions:')
+            print('\ttake [object] = Take a object by name')
+            print('\tdrop [object] = Take a object by name')
+
+
+            print("\n")
+        
+        elif command == 'q':
             break
-        if command == "n":
+        elif command == "n":
             if myPlayer.current_room.n_to:
                 myPlayer.current_room=myPlayer.current_room.n_to
                 print(f"\t\t You entered: -> {myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
