@@ -13,12 +13,21 @@ class Room:
 
     def addItem(self, items):
         # self.inventory.append(items)
-        self.inventory.extend(items)
+        self.inventory.append(items)
             
 
     def removeItem(self, item_name, player):
         # print("remove it from room")
-        [self.inventory.remove(item) if item.name.lower() == item_name.lower() else print('not here!') for item in self.inventory  ]
+        y = [item.name.lower() for item in self.inventory]
+        if item_name.lower() in y:
+            print('🥳 Yay!')
+        else:
+            print('That item is not in this room.\n')
+        def remove_and_add(item):
+            self.inventory.remove(item)
+            player.addItem(item)
+        # [remove_and_add(item) if item.name.lower() == item_name.lower() else print('that item is not here') for item in self.inventory  ]
+        [remove_and_add(item) for item in self.inventory if item.name.lower() == item_name.lower()]
 
     def __str__(self):
         return f"this is room {self.name}. Description: {self.description}"

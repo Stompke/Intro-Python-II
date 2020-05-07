@@ -8,13 +8,20 @@ class Player:
         self.inventory = []
 
     def addItem(self, items):
-        print("add item to player")
-        self.inventory.extend(items)
+        # print("add item to player")
+        self.inventory.append(items)
+        print(f"\nYou received {items.name}\n")
 
-    def removeItem(self, item):
-        if item in self.inventory:
+    def removeItem(self, item_name, room):
+        y = [item.name.lower() for item in self.inventory]
+        if item_name.lower() not in y:
+            print('You dont have that item.\n')
+        def remove_and_add(item):
             self.inventory.remove(item)
-            self.current_room.addItem(item)
+            print(f"\nYou dropped {item.name}\n")
+            room.addItem(item)
+        # [remove_and_add(item) if item.name.lower() == item_name.lower() else print('that item is not here') for item in self.inventory  ]
+        [remove_and_add(item) for item in self.inventory if item.name.lower() == item_name.lower()]
 
     def __str__(self):
         return f"\t{self.name}- ({self.current_room.name})"

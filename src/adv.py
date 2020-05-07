@@ -28,9 +28,9 @@ earlier adventurers. The only exit is to the south."""),
 items = {
     'knife':  Item("Knife",
                      "🔪 A long pointy sharp knife"),
-    'shovel':  Item("Spade Shovel",
+    'shovel':  Item("Shovel",
                      "⛏ Very good at digging holes."),
-    'candle':  Item("Gold Candlestick",
+    'candle':  Item("Candlestick",
                      "🕯 It will light your path. Or buy you something nice"),
                      
 }
@@ -50,9 +50,9 @@ room['treasure'].s_to = room['narrow']
 # room items
 
 
-room['outside'].addItem([items['shovel']])
-room['outside'].addItem([items['knife']])
-room['foyer'].addItem([items['candle']])
+room['outside'].addItem(items['shovel'])
+room['outside'].addItem(items['knife'])
+room['foyer'].addItem(items['candle'])
 
 
 #
@@ -69,65 +69,92 @@ while True:
     print(myPlayer)
     command=input('\tEnter a command: ')
     print("\n\n\n\n\n\n\n")
-    if command == 'q':
-        break
-    if command == "n":
-        if myPlayer.current_room.n_to:
-            myPlayer.current_room=myPlayer.current_room.n_to
-            print(f"\t\t You entered: -> {myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
-        else:
-            print("\t\t There is no room there...\n")
-    if command == "s":
-        if myPlayer.current_room.s_to:
-            myPlayer.current_room=myPlayer.current_room.s_to
-            print(f"\t\t You entered: -> {myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
-        else:
-            print("\t\t There is no room there...\n")
-    if command == "e":
-        if myPlayer.current_room.e_to:
-            myPlayer.current_room=myPlayer.current_room.e_to
-            print(f"\t\t You entered: -> {myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
-        else:
-            print("\t\t There is no room there...\n")
-    if command == "w":
-        if myPlayer.current_room.w_to:
-            myPlayer.current_room=myPlayer.current_room.w_to
-            print(f"\t\t You entered: -> {myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
-        else:
-            print("\t\t There is no room there...\n")
-    
-    if command == "look":
-        
-        # print(type(myPlayer.current_room.inventory))
-        if len(myPlayer.current_room.inventory) > 0:
-            # print(myPlayer.current_room.inventory)
-            print("Items in this room:\n")
-            [ print(item.name) for item in myPlayer.current_room.inventory]
-        # print(myPlayer.current_room.inventory)
-        # [ print(f"{item.name} - {item.description}") for item in myPlayer.current_room.inventory]
-        else:
-            print("\tThere is nothing here...\n")
-        
-    if command == "inv":
-        # print(f"\t My Inventory: {[ [item.name, item.description] for item in myPlayer.inventory]}\n")
-        print(f"\t My Inventory: \n")
-        print(myPlayer.inventory)
-        [ print(item.name) for item in myPlayer.inventory]
-        # print(myPlayer.inventory)
-        # [ print(f"{item[0].name} - {item[0].description}") for item in myPlayer.inventory]
-        # print(f"\t My Inventory: {[ (item.name, item.description) for item in myPlayer.inventory]}\n")
 
-    if command == "take":
-        stuff = myPlayer.current_room.inventory
-        # take_this=input('\tWhat to take?: ')
-        if len(stuff) > 0:
-            # print(f"\t You took it!")
-            print(f"stuff to take: \n")
-            [print(item.name) for item in stuff]
-            item_chosen = input("\t which item:")
-            myPlayer.current_room.removeItem(item_chosen, myPlayer)
+    split_command = command.split(' ')
+
+    if len(split_command) == 1:
+
+        if command == 'q':
+            break
+        if command == "n":
+            if myPlayer.current_room.n_to:
+                myPlayer.current_room=myPlayer.current_room.n_to
+                print(f"\t\t You entered: -> {myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
+            else:
+                print("\t\t There is no room there...\n")
+        elif command == "s":
+            if myPlayer.current_room.s_to:
+                myPlayer.current_room=myPlayer.current_room.s_to
+                print(f"\t\t You entered: -> {myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
+            else:
+                print("\t\t There is no room there...\n")
+        elif command == "e":
+            if myPlayer.current_room.e_to:
+                myPlayer.current_room=myPlayer.current_room.e_to
+                print(f"\t\t You entered: -> {myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
+            else:
+                print("\t\t There is no room there...\n")
+        elif command == "w":
+            if myPlayer.current_room.w_to:
+                myPlayer.current_room=myPlayer.current_room.w_to
+                print(f"\t\t You entered: -> {myPlayer.current_room.name}: {myPlayer.current_room.description}\n") #prints location
+            else:
+                print("\t\t There is no room there...\n")
+
+        elif command == "inv":
+            print(f"\t My Inventory: \n")
+            # print(myPlayer.inventory)
+            [ print(f"{item.name} - {item.description}\n") for item in myPlayer.inventory]
+    
+        elif command == "look":
+            
+            # print(type(myPlayer.current_room.inventory))
+            if len(myPlayer.current_room.inventory) > 0:
+                # print(myPlayer.current_room.inventory)
+                print("Items in this room:\n")
+                [ print(f"{item.name} - {item.description}") for item in myPlayer.current_room.inventory]
+                print("\n")
+            # print(myPlayer.current_room.inventory)
+            # [ print(f"{item.name} - {item.description}") for item in myPlayer.current_room.inventory]
+            else:
+                print("\tThere is nothing in this room...\n")
         else:
-            print(f"\t There is nothing to get.\n")
+            print("\n Not a valid command. Type h1 for all 1 word commands. \n")
+
+
+    elif len(split_command) == 2:
+
+        if split_command[0] == "take":
+            room_stuff = myPlayer.current_room.inventory
+            # take_this=input('\tWhat to take?: ')
+            if len(room_stuff) > 0:
+                # print(f"\t You took it!")
+                # print(f"room_stuff to take: \n")
+                # [print(f"{item.name} - {item.description}") for item in room_stuff]
+                print("\n")
+                # item_chosen = input("\t which item:")
+                myPlayer.current_room.removeItem(split_command[1], myPlayer)
+                # myPlayer.addItem(room_stuff)
+            else:
+                print(f"\n There is nothing here.\n")
+
+        elif split_command[0] == "drop":
+            my_stuff = myPlayer.inventory
+            # take_this=input('\tWhat to take?: ')
+            if len(my_stuff) > 0:
+                # print(f"\t You took it!")
+                # print(f"my_stuff to take: \n")
+                # [print(f"{item.name} - {item.description}") for item in my_stuff]
+                print("\n")
+                # item_chosen = input("\t which item:")
+                myPlayer.removeItem(split_command[1], myPlayer.current_room)
+                # myPlayer.addItem(my_stuff)
+            else:
+                print(f"\n You do not have any items.\n")
+        
+        else:
+            print("\n Not a valid command. Type h2 for all 2 word commands. \n")
+        
 
 # Write a loop that:
 #
