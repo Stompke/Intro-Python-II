@@ -21,6 +21,10 @@ to north. The smell of gold permeates the air."""),
     'treasure': Room("💰  Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
+
+    'bedroom': Room("🛏  Bedroom", """You've walked into the masters bedroom. It looks pretty tidy in here, but something shiny is under the bed."""),
+
+    'locked_room': Room("🔒 Locked Room", """You have made it into the locked room! its cold in here, but smells like food."""),
 }
 
 # declares all items
@@ -32,6 +36,8 @@ items = {
                      "⛏ Very good at digging holes."),
     'candle':  Item("Candlestick",
                      "🕯 It will light your path. Or buy you something nice"),
+    'key':  Item("Key",
+                     "🔑  A key!! But what does it open?"),
                      
 }
 
@@ -46,6 +52,14 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
+room['treasure'].n_to = room['locked_room']
+room['locked_room'].s_to = room['treasure']
+room['overlook'].w_to = room['bedroom']
+room['bedroom'].e_to = room['overlook']
+
+# Locked Rooms
+
+
 
 # room items
 
@@ -53,6 +67,7 @@ room['treasure'].s_to = room['narrow']
 room['outside'].addItem(items['shovel'])
 room['outside'].addItem(items['knife'])
 room['foyer'].addItem(items['candle'])
+room['bedroom'].addItem(items['key'])
 
 
 #
@@ -103,6 +118,7 @@ while True:
         
         elif command == 'q':
             break
+        
         elif command == "n":
             if myPlayer.current_room.n_to:
                 myPlayer.current_room=myPlayer.current_room.n_to
