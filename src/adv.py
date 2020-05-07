@@ -26,12 +26,12 @@ earlier adventurers. The only exit is to the south."""),
 # declares all items
 
 items = {
-    'knife':  Item("🔪 Knife",
-                     "A long pointy sharp knife"),
-    'shovel':  Item("⛏ Spade Shovel",
-                     "Very good at digging holes."),
-    'candle':  Item("🕯 Gold Candlestick",
-                     "It will light your path. Or buy you something nice"),
+    'knife':  Item("Knife",
+                     "🔪 A long pointy sharp knife"),
+    'shovel':  Item("Spade Shovel",
+                     "⛏ Very good at digging holes."),
+    'candle':  Item("Gold Candlestick",
+                     "🕯 It will light your path. Or buy you something nice"),
                      
 }
 
@@ -50,9 +50,9 @@ room['treasure'].s_to = room['narrow']
 # room items
 
 
-room['outside'].addItem(items['shovel'])
-room['outside'].addItem(items['knife'])
-room['foyer'].addItem(items['candle'])
+room['outside'].addItem([items['shovel']])
+room['outside'].addItem([items['knife']])
+room['foyer'].addItem([items['candle']])
 
 
 #
@@ -97,21 +97,37 @@ while True:
             print("\t\t There is no room there...\n")
     
     if command == "look":
-        print(f"\t\tItems: {[ (item.name, item.description) for item in myPlayer.current_room.inventory]}\n")
+        
+        # print(type(myPlayer.current_room.inventory))
+        if len(myPlayer.current_room.inventory) > 0:
+            # print(myPlayer.current_room.inventory)
+            print("Items in this room:\n")
+            [ print(item.name) for item in myPlayer.current_room.inventory]
+        # print(myPlayer.current_room.inventory)
+        # [ print(f"{item.name} - {item.description}") for item in myPlayer.current_room.inventory]
+        else:
+            print("\tThere is nothing here...\n")
+        
     if command == "inv":
         # print(f"\t My Inventory: {[ [item.name, item.description] for item in myPlayer.inventory]}\n")
-        print(f"\t My Inventory: {myPlayer.inventory}\n")
-        print(f"\t My Inventory: {[ (item.name, item.description) for item in myPlayer.inventory]}\n")
+        print(f"\t My Inventory: \n")
+        print(myPlayer.inventory)
+        [ print(item.name) for item in myPlayer.inventory]
+        # print(myPlayer.inventory)
+        # [ print(f"{item[0].name} - {item[0].description}") for item in myPlayer.inventory]
+        # print(f"\t My Inventory: {[ (item.name, item.description) for item in myPlayer.inventory]}\n")
+
     if command == "take":
         stuff = myPlayer.current_room.inventory
-        take_this=input('\tWhat to take?: ')
+        # take_this=input('\tWhat to take?: ')
         if len(stuff) > 0:
-            print(f"\t You took it!")
-            # myPlayer.addItem(stuff[0])
-            myPlayer.current_room.removeItem(take_this, myPlayer)
+            # print(f"\t You took it!")
+            print(f"stuff to take: \n")
+            [print(item.name) for item in stuff]
+            item_chosen = input("\t which item:")
+            myPlayer.current_room.removeItem(item_chosen, myPlayer)
         else:
             print(f"\t There is nothing to get.\n")
-            
 
 # Write a loop that:
 #

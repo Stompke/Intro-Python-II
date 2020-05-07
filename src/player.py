@@ -7,8 +7,9 @@ class Player:
         self.current_room = current_room
         self.inventory = []
 
-    def addItem(self, item):
-        self.inventory.append(item)
+    def addItem(self, items):
+        print("add item to player")
+        self.inventory.extend(items)
 
     def removeItem(self, item):
         if item in self.inventory:
