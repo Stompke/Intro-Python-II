@@ -6,6 +6,7 @@ class Player:
         self.name = name
         self.current_room = current_room
         self.inventory = []
+        self.points = 0
 
     def addItem(self, items):
         # print("add item to player")
@@ -20,8 +21,7 @@ class Player:
             self.inventory.remove(item)
             print(f"\nYou dropped {item.name}\n")
             room.addItem(item)
-        # [remove_and_add(item) if item.name.lower() == item_name.lower() else print('that item is not here') for item in self.inventory  ]
         [remove_and_add(item) for item in self.inventory if item.name.lower() == item_name.lower()]
 
     def __str__(self):
-        return f"\t{self.name}- ({self.current_room.name})"
+        return f"\t{self.name}({self.points}gp)- ({self.current_room.name})"

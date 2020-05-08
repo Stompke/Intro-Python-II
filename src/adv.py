@@ -38,7 +38,8 @@ items = {
                      "🕯 It will light your path. Or buy you something nice"),
     'key':  Item("Key",
                      "🔑  A key!! But what does it open?"),
-                     
+    'gold':  Item("gold",
+                     "  💰 ", 3),
 }
 
 
@@ -68,6 +69,8 @@ room['outside'].addItem(items['shovel'])
 room['outside'].addItem(items['knife'])
 room['foyer'].addItem(items['candle'])
 room['bedroom'].addItem(items['key'])
+room['locked_room'].addItem(items['gold'])
+
 
 
 #
@@ -91,8 +94,8 @@ while True:
 
         # Help commands
 
-        if command == 'h':
-            print('\n These are your avaible one word commands:\n')
+        if command == 'h1':
+            print('\n These are your available one word commands:\n')
 
             print('Directions:')
             print('\tn = north')
